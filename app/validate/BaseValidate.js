@@ -4,6 +4,7 @@ class BaseValidate {
   constructor(ctx) {
     this.ctx = ctx;
     this.method = 'GET';
+    this.defaultParams = {};
     this.params = {};
     this.rule = {};
     this.filterRule = {};
@@ -15,9 +16,9 @@ class BaseValidate {
   init() {
     this.method = this.ctx.request.method;
     if (this.method === 'GET') {
-      this.params = this.ctx.request.query;
+      this.params = { ...this.defaultParams, ...this.ctx.request.query };
     } else if (this.ctx.request.method === 'POST') {
-      this.params = this.ctx.request.body;
+      this.params = { ...this.defaultParams, ...this.ctx.request.body };
     }
   }
 

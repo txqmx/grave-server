@@ -26,10 +26,10 @@ module.exports = appInfo => {
         'Content-Type': 'application/json',
       });
       const status = err.status || 500;
-      ctx.body = JSON.stringify({
+      ctx.body = {
         code: 0,
         message: err.message,
-      });
+      };
       ctx.status = status;
     },
   };
@@ -47,6 +47,11 @@ module.exports = appInfo => {
       enable: false,
       ignoreJSON: true,
     },
+  };
+
+  config.cors = {
+    origin: '*',
+    allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH',
   };
 
   config.validatePlus = {

@@ -5,6 +5,11 @@ const BaseValidate = require('./BaseValidate');
 class AdminValidate extends BaseValidate {
   constructor(ctx) {
     super(ctx);
+
+    this.defaultParams = {
+      id: ctx.adminInfo && ctx.adminInfo.id,
+    };
+
     this.rule = {
       id: [{ required: true, message: 'id不能为空' }],
       name: [{ required: true, message: 'name不能为空' }],
@@ -16,6 +21,7 @@ class AdminValidate extends BaseValidate {
       in: [ 'id', 'user_name' ],
       like: [ 'name' ],
     };
+    this.init();
   }
 
   async getParams(type) {
