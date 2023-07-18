@@ -1,15 +1,15 @@
 'use strict';
 
 const BaseController = require('./BaseController');
-const MetaValidate = require('../validate/MetaValidate');
+const MateValidate = require('../validate/MateValidate');
 
-class MetaController extends BaseController {
+class MateController extends BaseController {
   constructor(...arg) {
     super(...arg);
-    this.service = 'meta'; // service名称
+    this.service = 'mate'; // service名称
 
-    this.validate = new MetaValidate(this.ctx);
+    this.validate = new MateValidate(this.ctx);
   }
 }
 
-module.exports = MetaController;
+module.exports = MateController;

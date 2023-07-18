@@ -2,10 +2,10 @@
 
 /** @type Egg.EggPlugin */
 module.exports = {
-  // jwt: {
-  //   enable: true,
-  //   package: 'egg-jwt',
-  // },
+  jwt: {
+    enable: true,
+    package: 'egg-jwt',
+  },
   sequelize: {
     enable: false,
     package: 'egg-sequelize',

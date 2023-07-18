@@ -10,13 +10,13 @@ const actionObject = [
   'photo',
 ];
 
-function getbaseAction(router, controller) {
+function getbaseAction(router, controller, jwt) {
   actionObject.forEach(item => {
-    router.post(`/api/${item}/create`, controller[item].create);
-    router.get(`/api/${item}/detail`, controller[item].findOne);
-    router.get(`/api/${item}/list`, controller[item].findAll);
-    router.post(`/api/${item}/update`, controller[item].update);
-    router.post(`/api/${item}/delete`, controller[item].delete);
+    router.post(`/api/${item}/create`, jwt, controller[item].create);
+    router.get(`/api/${item}/detail`, jwt, controller[item].findOne);
+    router.get(`/api/${item}/list`, jwt, controller[item].findAll);
+    router.post(`/api/${item}/update`, jwt, controller[item].update);
+    router.post(`/api/${item}/delete`, jwt, controller[item].delete);
   });
 }
 
@@ -24,8 +24,9 @@ function getbaseAction(router, controller) {
  * @param {Egg.Application} app - egg application
  */
 module.exports = app => {
-  const { router, controller } = app;
-
-  getbaseAction(router, controller);
+  const { router, controller, middleware } = app;
+  const jwt = middleware.jwt();
+  getbaseAction(router, controller, jwt);
+  router.post('/api/admin/login', controller.admin.login);
 
 };

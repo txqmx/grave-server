@@ -13,7 +13,7 @@ class AdminValidate extends BaseValidate {
       phone: [{ required: true, message: 'phone不能为空' }],
     };
     this.where = {
-      in: [ 'id' ],
+      in: [ 'id', 'user_name' ],
       like: [ 'name' ],
     };
   }
@@ -27,12 +27,16 @@ class AdminValidate extends BaseValidate {
 
 
   sceneAdd() {
-    this.setValidate([ 'name', 'user_name', 'password' ]);
+    this.setValidate([ 'user_name', 'password' ]);
     this.filterParam([ 'id' ]);
   }
 
   sceneEdit() {
-    this.setValidate([ 'id', 'name', 'user_name', 'password' ]);
+    this.setValidate([ 'id', 'user_name', 'password' ]);
+  }
+
+  sceneLogin() {
+    this.setValidate([ 'user_name', 'password' ]);
   }
 
 

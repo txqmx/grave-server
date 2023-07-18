@@ -11,6 +11,14 @@ class AdminController extends BaseController {
     this.validate = new AdminValidate(this.ctx);
   }
 
+  // 登录
+  async login() {
+    const { ctx } = this;
+    const params = await this.validate.getParams('Login');
+    const result = await ctx.service[this.service].login(params);
+    this.ctx.success(result);
+  }
+
 
 }
 

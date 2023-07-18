@@ -34,6 +34,14 @@ module.exports = appInfo => {
     },
   };
 
+  config.jwt = {
+    secret: 'grave',
+    sign: {	// jwt.sign(***,***,[options,***])方法中，options的默认设置可以在这里配置；
+      // 过期时间8小时
+      expiresIn: 8 * (60 * 60), // 多少s后过期。actionToken.js中,jwt.sing(plyload,secret,{expiresIn:number})会被合并，调用时设置优先级更高;
+    },
+  };
+
   config.security = {
     csrf: {
       enable: false,
