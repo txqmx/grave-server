@@ -5,11 +5,14 @@ module.exports = () => {
     // const token = ctx.request.header.authorization;
     const token = ctx.request.header.token;
     if (token) {
-      const secret = ctx.app.config.jwt.secret;
-      const decoded = await ctx.app.jwt.verify(token, secret);
-      ctx.adminInfo = decoded;
+      try {
+        const secret = ctx.app.config.jwt.secret;
+        const decoded = await ctx.app.jwt.verify(token, secret);
+        ctx.adminInfo = decoded;
+      } catch (error) {
+        ctx.error('请登录', 401);
+      }
       await next();
-
     } else {
       ctx.error('请登录', 401);
     }
