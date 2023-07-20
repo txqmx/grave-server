@@ -28,5 +28,6 @@ module.exports = app => {
   const jwt = middleware.jwt();
   getbaseAction(router, controller, jwt);
   router.post('/api/admin/login', controller.admin.login);
+  router.post('/api/grave/createGrave', controller.grave.createGrave);
 
 };

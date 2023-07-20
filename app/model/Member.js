@@ -5,9 +5,9 @@ module.exports = (app, model) => {
   const Member = model.define('member', {
     id: { type: INTEGER, primaryKey: true, autoIncrement: true },
     grave_id: INTEGER,
-    pid: INTEGER,
+    pid: { type: INTEGER, defaultValue: 0 },
     name: STRING(255),
-    sex: { type: TINYINT(1), defaultValue: 0 }, // 0-女 1-男
+    sex: { type: TINYINT(1), defaultValue: 1 }, // 0-女 1-男
     identity: STRING(255),
     native: STRING(255),
     avatar: STRING(255),

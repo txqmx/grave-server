@@ -11,6 +11,18 @@ class GraveController extends BaseController {
     this.validate = new GraveValidate(this.ctx);
   }
 
+  // 新增 --- 新增墓碑+新增master
+  async createGrave() {
+    const { ctx } = this;
+    const params = await this.validate.getParams('Add');
+    const result = await ctx.service[this.service].createGrave(params);
+    if (result) {
+      this.ctx.success(result);
+    } else {
+      this.ctx.error('新增失败');
+    }
+  }
+
 
 }
 
