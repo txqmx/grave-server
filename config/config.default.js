@@ -20,19 +20,19 @@ module.exports = appInfo => {
   // add your middleware config here
   config.middleware = [ 'errorHandler' ];
 
-  config.onerror = {
-    all(err, ctx) {
-      ctx.set({
-        'Content-Type': 'application/json',
-      });
-      const status = err.status || 500;
-      ctx.body = {
-        code: 0,
-        message: err.message,
-      };
-      ctx.status = status;
-    },
-  };
+  // config.onerror = {
+  //   all(err, ctx) {
+  //     ctx.set({
+  //       'Content-Type': 'application/json',
+  //     });
+  //     const status = err.status || 500;
+  //     ctx.body = {
+  //       code: 0,
+  //       message: err.message,
+  //     };
+  //     ctx.status = status;
+  //   },
+  // };
 
   config.jwt = {
     secret: 'grave',

@@ -10,11 +10,11 @@ module.exports = () => {
         const decoded = await ctx.app.jwt.verify(token, secret);
         ctx.adminInfo = decoded;
       } catch (error) {
-        ctx.error('请登录', 401);
+        ctx.throw(401, '未登录， 请先登录');
       }
       await next();
     } else {
-      ctx.error('请登录', 401);
+      ctx.throw(401, '未登录， 请先登录');
     }
 
   };

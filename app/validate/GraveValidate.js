@@ -7,7 +7,9 @@ class FileCateValidate extends BaseValidate {
     super(ctx);
     this.rule = {
       id: [{ required: true, message: 'id不能为空' }],
+      code: [{ required: true, message: 'code不能为空' }],
       name: [{ required: true, message: 'name不能为空' }],
+
     };
     this.where = {
       in: [ 'id' ],
@@ -24,12 +26,13 @@ class FileCateValidate extends BaseValidate {
 
 
   sceneAdd() {
-    this.setValidate([ 'name' ]);
+    this.setValidate([ 'code' ]);
     this.filterParam([ 'id' ]);
   }
 
   sceneEdit() {
-    this.setValidate([ 'id', 'name' ]);
+    this.setValidate([ 'id' ]);
+    this.filterParam([ 'code' ]);
   }
 
 

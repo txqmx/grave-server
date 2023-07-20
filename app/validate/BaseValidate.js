@@ -53,7 +53,7 @@ class BaseValidate {
       const error = this.ctx.body.error;
       // eslint-disable-next-line prefer-promise-reject-errors
       return Promise.reject({
-        status: 500,
+        status: 400,
         message: error.length ? error[0].message : '参数错误',
       });
     }

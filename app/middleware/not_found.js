@@ -8,7 +8,8 @@ module.exports = () => {
     if (flag.length) {
       await next();
     } else {
-      ctx.error('接口 ' + ctx.request.url + ' 不存在', 404);
+      const msg = '接口 ' + ctx.request.url + ' 不存在';
+      ctx.throw(404, msg);
     }
   };
 };
