@@ -7,11 +7,11 @@ class ArticleValidate extends BaseValidate {
     super(ctx);
     this.rule = {
       id: [{ required: true, message: 'id不能为空' }],
+      grave_id: [{ required: true, message: 'grave_id不能为空' }],
       name: [{ required: true, message: 'name不能为空' }],
-      code: [{ required: true, message: 'code不能为空' }],
     };
     this.where = {
-      in: [ 'id', 'code' ],
+      in: [ 'id', 'grave_id' ],
       like: [ 'name' ],
     };
   }
@@ -25,13 +25,13 @@ class ArticleValidate extends BaseValidate {
 
 
   sceneAdd() {
-    this.setValidate([ 'name', 'code' ]);
+    this.setValidate([ 'name', 'grave_id' ]);
     this.filterParam([ 'id' ]);
   }
 
   sceneEdit() {
-    this.setValidate([ 'id', 'name', 'code' ]);
-    this.filterParam([ 'code' ]);
+    this.setValidate([ 'id', 'name', 'grave_id' ]);
+    this.filterParam([ 'grave_id' ]);
   }
 
 

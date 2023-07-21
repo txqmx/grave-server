@@ -2,7 +2,7 @@
 module.exports = (app, model) => {
   const { STRING, INTEGER, TINYINT, TEXT } = app.Sequelize;
 
-  const Mate = model.define('mate', {
+  const Mate = model.define('meta', {
     id: { type: INTEGER, primaryKey: true, autoIncrement: true },
     grave_id: INTEGER,
     name: STRING(255),
@@ -17,6 +17,9 @@ module.exports = (app, model) => {
     die_time: STRING(255),
     is_die: { type: TINYINT(1), defaultValue: 0 },
   });
+  Mate.associate = () => {
+    model.Mate.belongsTo(model.Member, { foreignKey: { name: 'mate_id' } });
+  };
 
   return Mate;
 };

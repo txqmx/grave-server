@@ -72,12 +72,13 @@ class BseService extends Service {
         },
       }));
     });
-    const child = await Promise.all(promise);
-    for (let [ index, item ] of child.entries()) {
+    const children = await Promise.all(promise);
+    for (let [ index, item ] of children.entries()) {
       if (item.length > 0) {
         item = await this.findChild(item);
       }
-      list[index].dataValues.child = item;
+
+      list[index].setDataValue('children', item);
     }
     return list;
   }

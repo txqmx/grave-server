@@ -20,5 +20,9 @@ module.exports = (app, model) => {
     is_master: { type: TINYINT(1), defaultValue: 0 },
   });
 
+  Member.associate = () => {
+    model.Member.hasOne(model.Mate, { foreignKey: 'mate_id', targetKey: 'id', as: 'mateInfo' });
+  };
+
   return Member;
 };

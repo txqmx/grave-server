@@ -37,8 +37,6 @@ class GraveService extends BaseService {
       transaction.rollback();
       this.ctx.throw(500, error.message || '服务器错误');
     }
-
-
   }
 
 
