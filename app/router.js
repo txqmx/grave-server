@@ -12,7 +12,7 @@ module.exports = app => {
   router.group({ prefix: '/api/admin', middlewares: [] }, router => {
     const controllerGroup = controller.admin;
     router.post('/create', controllerGroup.create);
-    router.get('/detail', controllerGroup.findOne);
+    router.get('/detail', jwt, controllerGroup.findOne);
     router.get('/list', controllerGroup.findAll);
     router.post('/update', controllerGroup.update);
     router.post('/delete', controllerGroup.delete);
@@ -20,7 +20,7 @@ module.exports = app => {
   });
 
   // 墓碑管理
-  router.group({ prefix: '/api/grave', middlewares: [] }, router => {
+  router.group({ prefix: '/api/grave', middlewares: [ jwt ] }, router => {
     const controllerGroup = controller.grave;
     router.post('/create', controllerGroup.create);
     router.get('/detail', controllerGroup.findOne);

@@ -2,10 +2,10 @@
 
 const BaseValidate = require('./BaseValidate');
 
-class FileCateValidate extends BaseValidate {
+class GraveValidate extends BaseValidate {
   constructor(ctx) {
     super(ctx);
-    this.rule = {
+    this.allRule = {
       id: [{ required: true, message: 'id不能为空' }],
       code: [{ required: true, message: 'code不能为空' }],
       name: [{ required: true, message: 'name不能为空' }],
@@ -15,13 +15,16 @@ class FileCateValidate extends BaseValidate {
       in: [ 'id' ],
       like: [ 'name' ],
     };
+
+    this.init();
   }
 
-  async getParams(type) {
+  // 设置场景
+  setScene(type) {
     if (this[`scene${type}`]) {
       this[`scene${type}`]();
     }
-    return await this.checkValidate();
+    return this;
   }
 
 
@@ -38,4 +41,4 @@ class FileCateValidate extends BaseValidate {
 
 }
 
-module.exports = FileCateValidate;
+module.exports = GraveValidate;

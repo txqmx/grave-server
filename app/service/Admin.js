@@ -34,9 +34,11 @@ class AdminService extends BaseService {
           id: cur.id,
           root: cur.root,
           name: cur.name,
+          password: cur.password,
         }, app.config.jwt.secret);
         return { token };
       }
+
       this.ctx.error('密码错误');
 
     } else {

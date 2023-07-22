@@ -14,7 +14,7 @@ class AdminController extends BaseController {
   // 登录
   async login() {
     const { ctx } = this;
-    const params = await this.validate.getParams('Login');
+    const params = await this.validate.setScene('Login').checkValidate();
     const result = await ctx.service[this.service].login(params);
     this.ctx.success(result);
   }

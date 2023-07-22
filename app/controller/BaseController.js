@@ -9,18 +9,10 @@ class BaseController extends Controller {
     this.service = '';
   }
 
-  // 查询列表
-  async findAll() {
-    const { ctx } = this;
-    const params = await this.validate.getListParams();
-    const result = await ctx.service[this.service].findAll(params);
-    this.ctx.success(result);
-  }
-
   // 新增
   async create() {
     const { ctx } = this;
-    const params = await this.validate.getParams('Add');
+    const params = await this.validate.setScene('Add').checkValidate();
     const result = await ctx.service[this.service].create(params);
     if (result) {
       this.ctx.success(result);
@@ -32,7 +24,7 @@ class BaseController extends Controller {
   // 查询详情
   async findOne() {
     const { ctx } = this;
-    const params = await this.validate.getParams('Detail');
+    const params = await this.validate.setScene('Detail').checkValidate();
     const result = await ctx.service[this.service].findOne(params.id);
     if (result) {
       this.ctx.success(result);
@@ -44,7 +36,7 @@ class BaseController extends Controller {
   // 编辑
   async update() {
     const { ctx } = this;
-    const params = await this.validate.getParams('Edit');
+    const params = await this.validate.setScene('Edit').checkValidate();
     const result = await ctx.service[this.service].update(params);
     this.ctx.success(result);
   }
@@ -52,9 +44,17 @@ class BaseController extends Controller {
   // 删除
   async delete() {
     const { ctx } = this;
-    const params = await this.validate.getParams('Delete');
+    const params = await this.validate.setScene('Delete').checkValidate();
     await ctx.service[this.service].delete(params.id);
     this.ctx.success('success');
+  }
+
+  // 查询列表
+  async findAll() {
+    const { ctx } = this;
+    const params = await this.validate.getListParams();
+    const result = await ctx.service[this.service].findAll(params);
+    this.ctx.success(result);
   }
 
   // 查询树列表
