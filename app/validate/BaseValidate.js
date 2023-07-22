@@ -9,17 +9,15 @@ class BaseValidate {
     this.allRule = {}; // 全部校验规则
     this.rule = {}; // 需校验规则
     this.isPage = false;
-    this.where = {}; // 模糊搜索
+    this.where = {
+      in: {},
+      like: {},
+    }; // 模糊搜索
     this.init();
   }
 
   init() {
-    this.method = this.ctx.request.method;
-    if (this.method === 'GET') {
-      this.params = { ...this.defaultParams, ...this.ctx.request.query };
-    } else if (this.ctx.request.method === 'POST') {
-      this.params = { ...this.defaultParams, ...this.ctx.request.body };
-    }
+    this.params = { ...this.defaultParams, ...this.ctx.getParams() };
   }
 
   // 设置场景
@@ -56,25 +54,22 @@ class BaseValidate {
       });
     }
     const where = {};
-    this.where.in.forEach(item => {
-      if (params[item]) {
-        // 类型转换问题待处理
-        if (item === 'id') {
-          const ids = params.id.split(',').map(item => parseInt(item));
-          where[item] = {
-            $in: ids,
-          };
-        } else {
-          where[item] = {
-            $in: [ params[item] ],
-          };
+    Object.entries(this.where.in).forEach(res => {
+      const [ key, item ] = res;
+      if (params[key]) {
+        if (item.type === 'number') {
+          params[key] = Number(params[key]);
         }
+        where[key] = {
+          $in: [ params[key] ],
+        };
       }
     });
-    this.where.like.forEach(item => {
-      if (params[item]) {
-        where[item] = {
-          $like: `%${params[item]}%`,
+    Object.entries(this.where.like).forEach(res => {
+      const [ key ] = res;
+      if (params[key]) {
+        where[key] = {
+          $like: `%${params[key]}%`,
         };
       }
     });

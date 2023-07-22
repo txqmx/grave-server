@@ -7,6 +7,7 @@
 module.exports = app => {
   const { router, controller, middleware } = app;
   const jwt = middleware.jwt();
+  const grave = middleware.grave();
 
   // 管理员管理
   router.group({ prefix: '/api/admin', middlewares: [] }, router => {
@@ -30,7 +31,7 @@ module.exports = app => {
   });
 
   // 人员管理
-  router.group({ prefix: '/api/member', middlewares: [] }, router => {
+  router.group({ prefix: '/api/member', middlewares: [ grave ] }, router => {
     const controllerGroup = controller.member;
     router.post('/create', controllerGroup.create);
     router.get('/detail', controllerGroup.findOne);

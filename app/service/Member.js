@@ -11,7 +11,9 @@ class MemberService extends BaseService {
 
   async findTree(params) {
     const { ctx } = this;
-    const where = {};
+    const where = {
+      grave_id: params.grave_id,
+    };
     if (params.id) {
       where.id = params.id;
     } else {

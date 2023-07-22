@@ -1,6 +1,18 @@
 'use strict';
 module.exports = {
 
+  // 统一请求参数
+  getParams(key) {
+    const method = this.request.method;
+    let params = {};
+    if (method === 'GET') {
+      params = this.request.query;
+    } else if (method === 'POST') {
+      params = this.request.body;
+    }
+    return key ? params[key] : params;
+  },
+
   // 成功返回
   success(data = null, code = 0, status = 200) {
     this.status = status;
