@@ -11,7 +11,7 @@ module.exports = {
     };
   },
 
-  // 返回失败
+  // 返回失败, status=200，可指定特殊code
   error(message = '', code = 1, status = 200) {
     this.status = status;
     this.body = {

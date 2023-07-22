@@ -19,39 +19,28 @@ class MemberService extends BaseService {
     }
     let result = await ctx[this.delegate][this.model].findAll({
       where,
-      include: [{
-        model: this.ctx.model.Mate,
-        as: 'mateInfo',
-      }],
+      include: 'mate',
     });
-    result = await this.findChild(result, ctx);
+    result = await this.findChild(result);
     return result;
   }
 
-  async findChild(list, ctx) {
-    // const { ctx } = this;
-    const include = [{
-      model: ctx.model.Mate,
-      as: 'mateInfo',
-    }];
-    const promise = [];
-    list.forEach(item => {
-      promise.push(ctx[this.delegate][this.model].findAll({
+  async findChild(list = []) {
+    const { ctx } = this;
+    for (let i = 0; i < list.length; i++) {
+      const item = list[i];
+      const res = await ctx[this.delegate][this.model].findAll({
         where: {
           pid: item.id,
         },
-        include,
-      }));
-    });
-    const children = await Promise.all(promise);
-
-    for (let [ index, item ] of children.entries()) {
-      console.log('---', index, item);
-      if (item.length > 0) {
-        item = await this.findChild(item, ctx);
+      });
+      for (let j = 0; j < res.length; j++) {
+        const child = res[j];
+        const mate = await child.getMate();
+        child.setDataValue('mate', mate);
       }
-
-      list[index].setDataValue('children', item);
+      const children = await this.findChild(res);
+      list[i].setDataValue('children', children);
     }
     return list;
   }

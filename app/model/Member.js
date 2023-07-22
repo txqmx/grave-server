@@ -13,7 +13,6 @@ module.exports = (app, model) => {
     avatar: STRING(255),
     desc: STRING(255),
     detail: TEXT('long'),
-    mate_id: INTEGER,
     birth_time: STRING(255),
     die_time: STRING(255),
     is_die: { type: TINYINT(1), defaultValue: 0 },
@@ -21,7 +20,7 @@ module.exports = (app, model) => {
   });
 
   Member.associate = () => {
-    model.Member.hasOne(model.Mate, { foreignKey: 'mate_id', targetKey: 'id', as: 'mateInfo' });
+    model.Member.hasOne(model.Mate, { foreignKey: 'mate_id', as: 'mate', onDelete: 'SET NULL' });
   };
 
   return Member;

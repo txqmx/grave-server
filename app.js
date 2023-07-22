@@ -7,7 +7,7 @@ class AppBootHook {
     this.app = app;
   }
   configWillLoad() {
-    this.app.config.coreMiddleware.push('notFound');
+
   }
   async didReady() {
     // 所有的插件都已启动完毕，但是应用整体还未 ready

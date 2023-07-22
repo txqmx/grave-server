@@ -1,24 +1,5 @@
 'use strict';
 
-const actionObject = [
-  'admin',
-  'grave',
-  'member',
-  'mate',
-  'article',
-  'media',
-  'photo',
-];
-
-function getbaseAction(router, controller, jwt) {
-  actionObject.forEach(item => {
-    router.post(`/api/${item}/create`, jwt, controller[item].create);
-    router.get(`/api/${item}/detail`, jwt, controller[item].findOne);
-    router.get(`/api/${item}/list`, jwt, controller[item].findAll);
-    router.post(`/api/${item}/update`, jwt, controller[item].update);
-    router.post(`/api/${item}/delete`, jwt, controller[item].delete);
-  });
-}
 
 /**
  * @param {Egg.Application} app - egg application
@@ -26,8 +7,46 @@ function getbaseAction(router, controller, jwt) {
 module.exports = app => {
   const { router, controller, middleware } = app;
   const jwt = middleware.jwt();
-  getbaseAction(router, controller, jwt);
-  router.post('/api/admin/login', controller.admin.login);
-  router.get('/api/member/treeList', controller.member.treeList);
 
+  // 管理员管理
+  router.group({ prefix: '/api/admin', middlewares: [] }, router => {
+    const controllerGroup = controller.admin;
+    router.post('/create', controllerGroup.create);
+    router.get('/detail', controllerGroup.findOne);
+    router.get('/list', controllerGroup.findAll);
+    router.post('/update', controllerGroup.update);
+    router.post('/delete', controllerGroup.delete);
+    router.post('/login', controllerGroup.login);
+  });
+
+  // 墓碑管理
+  router.group({ prefix: '/api/grave', middlewares: [] }, router => {
+    const controllerGroup = controller.grave;
+    router.post('/create', controllerGroup.create);
+    router.get('/detail', controllerGroup.findOne);
+    router.get('/list', controllerGroup.findAll);
+    router.post('/update', controllerGroup.update);
+    router.post('/delete', controllerGroup.delete);
+  });
+
+  // 人员管理
+  router.group({ prefix: '/api/member', middlewares: [] }, router => {
+    const controllerGroup = controller.member;
+    router.post('/create', controllerGroup.create);
+    router.get('/detail', controllerGroup.findOne);
+    router.get('/list', controllerGroup.findAll);
+    router.post('/update', controllerGroup.update);
+    router.post('/delete', controllerGroup.delete);
+    router.get('/treeList', controllerGroup.treeList);
+  });
+
+  // 配偶管理
+  router.group({ prefix: '/api/mate', middlewares: [] }, router => {
+    const controllerGroup = controller.mate;
+    router.post('/create', controllerGroup.create);
+    router.get('/detail', controllerGroup.findOne);
+    router.get('/list', controllerGroup.findAll);
+    router.post('/update', controllerGroup.update);
+    router.post('/delete', controllerGroup.delete);
+  });
 };

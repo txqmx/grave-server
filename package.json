@@ -12,6 +12,7 @@
     "egg-jwt": "^3.1.7",
     "egg-multipart": "^3.3.0",
     "egg-mysql2": "^1.0.2",
+    "egg-router-group": "^1.1.0",
     "egg-scripts": "^2",
     "egg-sequelize": "^6.0.0",
     "egg-static": "^2.3.1",

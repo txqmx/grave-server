@@ -18,6 +18,10 @@ module.exports = {
     enable: true,
     package: 'egg-cors',
   },
+  routerGroup: {
+    enable: true,
+    package: 'egg-router-group',
+  },
   // multipart: {
   //   enable: true,
   //   package: 'egg-multipart',

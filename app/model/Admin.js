@@ -12,6 +12,7 @@ module.exports = (app, model) => {
     email: STRING(255),
     phone: STRING(255),
     remark: TEXT('long'),
+    grave_limit: { type: INTEGER, defaultValue: 0 },
   });
 
   return Admin;

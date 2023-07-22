@@ -31,6 +31,7 @@ CREATE TABLE `admin` (
   `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '邮箱',
   `phone` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '电话',
   `remark` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci COMMENT '备注',
+  `grave_limit` int DEFAULT NULL COMMENT '可创建数量',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`)
@@ -43,7 +44,6 @@ DROP TABLE IF EXISTS `grave`;
 CREATE TABLE `grave` (
   `id` int NOT NULL AUTO_INCREMENT COMMENT 'id',
   `admin_id` int DEFAULT NULL COMMENT '管理员id',
-  `master_id` int DEFAULT NULL COMMENT '墓主人id',
   `code` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '编码',
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '名字',
   `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '密码',
@@ -51,7 +51,6 @@ CREATE TABLE `grave` (
   `address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '地址',
   `desc` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '描述（墓志铭）',
   `detail` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci COMMENT '详情',
-  `page_config` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci COMMENT '页面配置',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`)
@@ -72,7 +71,6 @@ CREATE TABLE `member` (
   `avatar` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '头像',
   `desc` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '简介',
   `detail` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci COMMENT '详情',
-  `mate_id` int DEFAULT NULL COMMENT '配偶id',
   `birth_time` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '出生日期',
   `die_time` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '去世日期',
   `is_die` tinyint(1) DEFAULT NULL COMMENT '是否去世 1-是 0-否',
@@ -83,10 +81,10 @@ CREATE TABLE `member` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='人员表';
 
 -- ----------------------------
--- Table structure for meta
+-- Table structure for mate
 -- ----------------------------
-DROP TABLE IF EXISTS `meta`;
-CREATE TABLE `meta` (
+DROP TABLE IF EXISTS `mate`;
+CREATE TABLE `mate` (
   `id` int NOT NULL AUTO_INCREMENT COMMENT 'id',
   `grave_id` int DEFAULT NULL COMMENT '墓碑id',
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '名字',
@@ -104,6 +102,41 @@ CREATE TABLE `meta` (
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='配偶表';
+
+-- ----------------------------
+-- Table structure for page
+-- ----------------------------
+DROP TABLE IF EXISTS `page`;
+CREATE TABLE `page` (
+  `id` int NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `grave_id` int DEFAULT NULL COMMENT '墓碑id',
+  `template_id` int DEFAULT NULL COMMENT '模板id',
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '名字',
+  `desc` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '描述',
+  `readme` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci COMMENT '说明',
+  `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci COMMENT '详情',
+  `is_active` tinyint(1) DEFAULT NULL COMMENT '是否应用 1-是 0-否',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='页面表';
+
+-- ----------------------------
+-- Table structure for page_template
+-- ----------------------------
+DROP TABLE IF EXISTS `page_template`;
+CREATE TABLE `page_template` (
+  `id` int NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '名字',
+  `desc` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '描述',
+  `cover` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '封面',
+  `readme` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci COMMENT '说明',
+  `config` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci COMMENT '配置详情',
+  `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci COMMENT 'demo数据',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='页面模板';
 
 -- ----------------------------
 -- Table structure for article

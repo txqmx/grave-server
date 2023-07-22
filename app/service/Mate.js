@@ -21,7 +21,7 @@ class MateService extends BaseService {
     const transaction = await this.ctx[this.delegate].transaction();
     try {
       const mate = await ctx[this.delegate][this.model].create(params);
-      await master.update({ mate_id: mate.id });
+      // await master.update({ mate_id: mate.id });
       await transaction.commit();
       return mate;
     } catch (error) {
