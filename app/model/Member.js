@@ -20,7 +20,8 @@ module.exports = (app, model) => {
   });
 
   Member.associate = () => {
-    model.Member.hasOne(model.Mate, { foreignKey: 'mate_id', as: 'mate', onDelete: 'SET NULL' });
+    Member.hasOne(model.Mate, { foreignKey: 'mate_id', as: 'mate', onDelete: 'SET NULL' });
+    Member.belongsTo(model.Grave, { foreignKey: 'grave_id' });
   };
 
   return Member;

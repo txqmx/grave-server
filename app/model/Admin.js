@@ -15,5 +15,9 @@ module.exports = (app, model) => {
     grave_limit: { type: INTEGER, defaultValue: 0 },
   });
 
+  Admin.associate = () => {
+    Admin.hasMany(model.Grave, { foreignKey: 'admin_id', as: 'graves' });
+  };
+
   return Admin;
 };

@@ -15,9 +15,14 @@ class PageTemplateValidate extends BaseValidate {
       id: [{ required: true, message: 'id不能为空' }],
       name: [{ required: true, message: 'name不能为空' }],
     };
+
     this.where = {
-      in: [ 'id' ],
-      like: [ 'name' ],
+      in: {
+        id: { type: 'number' },
+      },
+      like: {
+        name: { type: 'string' },
+      },
     };
 
     this.init();

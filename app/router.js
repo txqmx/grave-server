@@ -10,15 +10,15 @@ module.exports = app => {
   const grave = middleware.grave();
 
   // 管理员管理
-  router.group({ prefix: '/api/admin', middlewares: [] }, router => {
+  router.group({ prefix: '/api/admin', middlewares: [ jwt ] }, router => {
     const controllerGroup = controller.admin;
     router.post('/create', controllerGroup.create);
-    router.get('/detail', jwt, controllerGroup.findOne);
+    router.get('/detail', controllerGroup.findOne);
     router.get('/list', controllerGroup.findAll);
     router.post('/update', controllerGroup.update);
     router.post('/delete', controllerGroup.delete);
-    router.post('/login', controllerGroup.login);
   });
+  router.post('/login', controller.admin.login);
 
   // 墓碑管理
   router.group({ prefix: '/api/grave', middlewares: [ jwt ] }, router => {
@@ -31,7 +31,7 @@ module.exports = app => {
   });
 
   // 人员管理
-  router.group({ prefix: '/api/member', middlewares: [ grave ] }, router => {
+  router.group({ prefix: '/api/member', middlewares: [ jwt, grave ] }, router => {
     const controllerGroup = controller.member;
     router.post('/create', controllerGroup.create);
     router.get('/detail', controllerGroup.findOne);
@@ -42,7 +42,7 @@ module.exports = app => {
   });
 
   // 配偶管理
-  router.group({ prefix: '/api/mate', middlewares: [] }, router => {
+  router.group({ prefix: '/api/mate', middlewares: [ jwt, grave ] }, router => {
     const controllerGroup = controller.mate;
     router.post('/create', controllerGroup.create);
     router.get('/detail', controllerGroup.findOne);
@@ -52,7 +52,7 @@ module.exports = app => {
   });
 
   // 页面管理
-  router.group({ prefix: '/api/page', middlewares: [] }, router => {
+  router.group({ prefix: '/api/page', middlewares: [ jwt, grave ] }, router => {
     const controllerGroup = controller.page;
     router.post('/create', controllerGroup.create);
     router.get('/detail', controllerGroup.findOne);
@@ -62,7 +62,7 @@ module.exports = app => {
   });
 
   // 模板管理
-  router.group({ prefix: '/api/pageTemplate', middlewares: [] }, router => {
+  router.group({ prefix: '/api/pageTemplate', middlewares: [ jwt ] }, router => {
     const controllerGroup = controller.pageTemplate;
     router.post('/create', controllerGroup.create);
     router.get('/detail', controllerGroup.findOne);

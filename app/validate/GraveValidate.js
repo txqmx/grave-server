@@ -13,6 +13,7 @@ class GraveValidate extends BaseValidate {
 
     this.allRule = {
       id: [{ required: true, message: 'id不能为空' }],
+      admin_id: [{ required: true, message: 'admin_id不能为空' }],
       code: [{ required: true, message: 'code不能为空' }],
       name: [{ required: true, message: 'name不能为空' }],
 
@@ -41,13 +42,13 @@ class GraveValidate extends BaseValidate {
 
 
   sceneAdd() {
-    this.setValidate([ 'code' ]);
+    this.setValidate([ 'code', 'admin_id' ]);
     this.filterParam([ 'id' ]);
   }
 
   sceneEdit() {
     this.setValidate([ 'id' ]);
-    this.filterParam([ 'code' ]);
+    this.filterParam([ 'code', 'admin_id' ]);
   }
 
 

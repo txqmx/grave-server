@@ -19,7 +19,7 @@ module.exports = (app, model) => {
   });
 
   Mate.associate = () => {
-    model.Mate.belongsTo(model.Member, { foreignKey: 'mate_id' });
+    Mate.belongsTo(model.Member, { foreignKey: 'mate_id' });
   };
 
   return Mate;

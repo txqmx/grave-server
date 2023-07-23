@@ -12,6 +12,9 @@ module.exports = (app, model) => {
     content: TEXT('long'),
   });
 
+  PageTemplate.associate = () => {
+    PageTemplate.hasMany(model.Page, { foreignKey: 'template_id' });
+  };
 
   return PageTemplate;
 };

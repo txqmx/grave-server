@@ -13,6 +13,11 @@ module.exports = (app, model) => {
     is_active: { type: TINYINT(1), defaultValue: 0 },
   });
 
+  Page.associate = () => {
+    Page.belongsTo(model.Grave, { foreignKey: 'grave_id' });
+    Page.belongsTo(model.PageTemplate, { foreignKey: 'template_id' });
+  };
+
 
   return Page;
 };

@@ -16,11 +16,16 @@ class AdminValidate extends BaseValidate {
       name: [{ required: true, message: 'name不能为空' }],
       user_name: [{ required: true, message: 'user_name不能为空' }],
       password: [{ required: true, message: 'password不能为空' }],
-      phone: [{ required: true, message: 'phone不能为空' }],
     };
+
     this.where = {
-      in: [ 'id', 'user_name' ],
-      like: [ 'name' ],
+      in: {
+        // id: { type: 'number' },
+        user_name: { type: 'string' },
+      },
+      like: {
+        name: { type: 'string' },
+      },
     };
 
     this.init();
@@ -43,6 +48,7 @@ class AdminValidate extends BaseValidate {
   // 编辑
   sceneEdit() {
     this.setValidate([ 'id', 'user_name', 'password' ]);
+    this.filterParam([ 'root', 'grave_limit' ]);
   }
 
   // 登录
