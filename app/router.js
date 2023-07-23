@@ -50,4 +50,24 @@ module.exports = app => {
     router.post('/update', controllerGroup.update);
     router.post('/delete', controllerGroup.delete);
   });
+
+  // 页面管理
+  router.group({ prefix: '/api/page', middlewares: [] }, router => {
+    const controllerGroup = controller.page;
+    router.post('/create', controllerGroup.create);
+    router.get('/detail', controllerGroup.findOne);
+    router.get('/list', controllerGroup.findAll);
+    router.post('/update', controllerGroup.update);
+    router.post('/delete', controllerGroup.delete);
+  });
+
+  // 模板管理
+  router.group({ prefix: '/api/pageTemplate', middlewares: [] }, router => {
+    const controllerGroup = controller.pageTemplate;
+    router.post('/create', controllerGroup.create);
+    router.get('/detail', controllerGroup.findOne);
+    router.get('/list', controllerGroup.findAll);
+    router.post('/update', controllerGroup.update);
+    router.post('/delete', controllerGroup.delete);
+  });
 };
