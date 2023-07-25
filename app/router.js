@@ -18,7 +18,7 @@ module.exports = app => {
     router.post('/update', controllerGroup.update);
     router.post('/delete', controllerGroup.delete);
   });
-  router.post('/login', controller.admin.login);
+  router.post('/api/admin/login', controller.admin.login);
 
   // 墓碑管理
   router.group({ prefix: '/api/grave', middlewares: [ jwt ] }, router => {

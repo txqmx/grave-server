@@ -14,8 +14,9 @@ module.exports = (app, model) => {
   });
 
   Page.associate = () => {
-    Page.belongsTo(model.Grave, { foreignKey: 'grave_id' });
     Page.belongsTo(model.PageTemplate, { foreignKey: 'template_id' });
+    Page.belongsTo(model.Grave, { foreignKey: 'grave_id' });
+
   };
 
 
