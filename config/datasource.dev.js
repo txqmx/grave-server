@@ -4,8 +4,8 @@ const Op = require('sequelize').Op;
 const mainDatabase = [
   {
     database: 'grave',
-    username: 'zongxintang',
-    password: '12345678',
+    username: 'grave',
+    password: '123456',
 
   },
 ];

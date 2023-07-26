@@ -1,7 +1,7 @@
 'use strict';
 
-const BaseController = require('./BaseController');
-const MediaValidate = require('../validate/MediaValidate');
+const BaseController = require('../BaseController');
+const MediaValidate = require('../../validate/MediaValidate');
 
 class MediaController extends BaseController {
   constructor(...arg) {

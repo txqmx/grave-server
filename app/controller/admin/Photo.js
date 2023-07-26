@@ -1,7 +1,7 @@
 'use strict';
 
-const BaseController = require('./BaseController');
-const PhotoValidate = require('../validate/PhotoValidate');
+const BaseController = require('../BaseController');
+const PhotoValidate = require('../../validate/PhotoValidate');
 
 class PhotoController extends BaseController {
   constructor(...arg) {

@@ -1,7 +1,7 @@
 'use strict';
 
-const BaseController = require('./BaseController');
-const PageValidate = require('../validate/PageValidate');
+const BaseController = require('../BaseController');
+const PageValidate = require('../../validate/PageValidate');
 
 class PageController extends BaseController {
   constructor(...arg) {
