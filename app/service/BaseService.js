@@ -2,7 +2,7 @@
 
 const Service = require('egg').Service;
 
-class BseService extends Service {
+class BaseService extends Service {
   constructor(...arg) {
     super(...arg);
     this.delegate = 'model';
@@ -84,4 +84,4 @@ class BseService extends Service {
   }
 }
 
-module.exports = BseService;
+module.exports = BaseService;

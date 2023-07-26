@@ -1,25 +1,24 @@
 'use strict';
 
-const BaseController = require('../BaseController');
-const AdminValidate = require('../../validate/AdminValidate');
-
-class AdminController extends BaseController {
+const Controller = require('egg').Controller;
+const FileValidate = require('../../validate/FileValidate');
+class FileController extends Controller {
   constructor(...arg) {
     super(...arg);
-    this.service = 'admin'; // 名称
+    this.service = 'file'; // 名称
 
-    this.validate = new AdminValidate(this.ctx);
+    this.validate = new FileValidate(this.ctx);
   }
 
-  // 登录
-  async login() {
+  // 上传
+  async upload() {
     const { ctx } = this;
-    const params = await this.validate.setScene('Login').checkValidate();
-    const result = await ctx.service[this.service].login(params);
+    const params = await this.validate.setScene('Upload').checkValidate();
+    const result = await ctx.service[this.service].upload(params);
     this.ctx.success(result);
   }
 
 
 }
 
-module.exports = AdminController;
+module.exports = FileController;

@@ -2,6 +2,7 @@
 
 'use strict';
 
+const path = require('path');
 const { datasourceConfig } = require('./datasource.dev');
 
 /**
@@ -67,6 +68,9 @@ module.exports = appInfo => {
   // add your user config here
   const userConfig = {
     // myAppName: 'egg',
+    file: {
+      disk: path.join(__dirname, '../..', 'upload'),
+    },
   };
 
   return {

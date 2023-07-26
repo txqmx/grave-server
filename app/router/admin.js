@@ -10,6 +10,7 @@ module.exports = app => {
   const grave = middleware.grave();
 
   router.post('/api/admin/login', controller.admin.admin.login);
+  router.post('/api/admin/upload', controller.admin.file.upload);
 
   // 管理员管理
   router.group({ prefix: '/api/admin/user', middlewares: [ jwt ] }, router => {
