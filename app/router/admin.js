@@ -9,8 +9,10 @@ module.exports = app => {
   const jwt = middleware.jwt();
   const grave = middleware.grave();
 
+  router.post('/api/admin/login', controller.admin.admin.login);
+
   // 管理员管理
-  router.group({ prefix: '/api/admin/user/', middlewares: [ jwt ] }, router => {
+  router.group({ prefix: '/api/admin/user', middlewares: [ jwt ] }, router => {
     const controllerGroup = controller.admin.admin;
     router.post('/create', controllerGroup.create);
     router.get('/detail', controllerGroup.findOne);
@@ -18,12 +20,13 @@ module.exports = app => {
     router.post('/update', controllerGroup.update);
     router.post('/delete', controllerGroup.delete);
   });
-  router.post('/api/admin/login', controller.admin.admin.login);
+
 
   // 墓碑管理
   router.group({ prefix: '/api/admin/grave', middlewares: [ jwt ] }, router => {
     const controllerGroup = controller.admin.grave;
     router.post('/create', controllerGroup.create);
+    router.post('/createGrave', controllerGroup.createGrave);
     router.get('/detail', controllerGroup.findOne);
     router.get('/list', controllerGroup.findAll);
     router.post('/update', controllerGroup.update);
@@ -59,6 +62,7 @@ module.exports = app => {
     router.get('/list', controllerGroup.findAll);
     router.post('/update', controllerGroup.update);
     router.post('/delete', controllerGroup.delete);
+    router.post('/changeStatus', controllerGroup.changeStatus);
   });
 
   // 模板管理

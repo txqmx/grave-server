@@ -21,6 +21,23 @@ class PageService extends BaseService {
     return result;
   }
 
+  // 起停用，一个租户只能有一个启用页面
+  async changeStatus(params) {
+    const result = await this.ctx[this.delegate][this.model].findAll({ grave_id: params.grave_id });
+    for (let i = 0; i < result.length; i++) {
+      const item = result[i];
+      if (item.id === params.id) {
+        item.update({ is_active: params.is_active });
+      } else {
+        if (params.is_active === 1) {
+          item.update({ is_active: 0 });
+        }
+
+      }
+    }
+    return true;
+  }
+
 }
 
 module.exports = PageService;

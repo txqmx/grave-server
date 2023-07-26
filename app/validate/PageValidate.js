@@ -16,6 +16,7 @@ class PageValidate extends BaseValidate {
       grave_id: [{ required: true, message: 'grave_id不能为空' }],
       template_id: [{ required: true, message: 'template_id不能为空' }],
       name: [{ required: true, message: 'name不能为空' }],
+      is_active: [{ required: true, message: 'is_active不能为空' }],
     };
 
     this.where = {
@@ -49,6 +50,11 @@ class PageValidate extends BaseValidate {
   sceneEdit() {
     this.setValidate([ 'id', 'name' ]);
     this.filterParam([ 'grave_id', 'template_id' ]);
+  }
+
+  // 状态改变
+  sceneStatus() {
+    this.setValidate([ 'id', 'grave_id', 'is_active' ]);
   }
 
 

@@ -14,11 +14,7 @@ class BaseController extends Controller {
     const { ctx } = this;
     const params = await this.validate.setScene('Add').checkValidate();
     const result = await ctx.service[this.service].create(params);
-    if (result) {
-      this.ctx.success(result);
-    } else {
-      this.ctx.error('新增失败');
-    }
+    this.ctx.success(result);
   }
 
   // 查询详情
@@ -26,11 +22,7 @@ class BaseController extends Controller {
     const { ctx } = this;
     const params = await this.validate.setScene('Detail').checkValidate();
     const result = await ctx.service[this.service].findOne(params.id);
-    if (result) {
-      this.ctx.success(result);
-    } else {
-      this.ctx.success(null);
-    }
+    this.ctx.success(result);
   }
 
   // 编辑
