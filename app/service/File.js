@@ -14,17 +14,26 @@ class FileService extends Service {
 
   // 文件上传
   async upload(params) {
-    const { data, md5, ext } = await this.checkFileInfo(params.file);
-    const { dir } = this.createUploadPath(params.folder);
+    if (!this.ctx.request.files || this.ctx.request.files.length === 0) {
+      this.ctx.throw(400, '请选择文件');
+    }
+    const file = this.ctx.request.files[0];
+    const { data, md5, ext } = await this.checkFileInfo(file);
+
     const filename = `${md5}.${ext}`;
-    const result = await fsPromises.writeFile(`${dir}/${filename}`, data);
-    return result;
+
+    // 文件路径
+    const { diskPath, path } = this.createUploadPath(params.folder, filename);
+
+    await fsPromises.writeFile(diskPath, data);
+
+    return { path };
   }
 
   // 解析文件信息
   async checkFileInfo(file) {
     const fsHash = crypto.createHash('md5');
-    const data = await fsPromises.readFile(file.filePath);
+    const data = await fsPromises.readFile(file.filepath);
     // 获取文件md5
     const md5 = fsHash.update(data).digest('hex');
     // 获取文件大小
@@ -38,17 +47,21 @@ class FileService extends Service {
     };
   }
 
-
   // 创建文件保存目录
-  createUploadPath(folder) {
+  createUploadPath(folder, filename) {
     // 获取配置中文件存放位置
     const disk = this.app.config.file.disk;
     const dir = folder ? `${disk}/${folder}` : `${disk}`;
     // const local = dayjs().format('YYYYMMDD');
-    if (!fs.existsSync(dir)) { // 目录不存在就创建一个目录
+    if (!fs.existsSync(disk)) {
+      fs.mkdirSync(disk);
+    }
+    if (!fs.existsSync(dir)) {
       fs.mkdirSync(dir);
     }
-    return { dir };
+    const diskPath = `${dir}/${filename}`; // 物理路径
+    const path = folder ? `${folder}/${filename}` : `${filename}`; // 存储路径
+    return { diskPath, path };
   }
 
   // 获取不带.的后缀名

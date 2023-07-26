@@ -16,7 +16,6 @@ class FileValidate extends BaseValidate {
     this.allRule = {
       admin_id: [{ required: true, message: 'admin_id不能为空' }],
       grave_id: [{ required: true, message: 'grave_id不能为空' }],
-      file: [{ required: true, message: '请选择文件' }],
     };
 
     this.init();
@@ -31,7 +30,7 @@ class FileValidate extends BaseValidate {
   }
 
   sceneUpload() {
-    this.setValidate([ 'file' ]);
+
   }
 
 }

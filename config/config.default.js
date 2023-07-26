@@ -65,13 +65,29 @@ module.exports = appInfo => {
     datasources: datasourceConfig(),
   };
 
+  config.multipart = {
+    mode: 'file',
+    // tmpdir: path.join(__dirname, '..', 'tmp', appInfo.name),
+    // fileExtensions: [ '.jpg', '.jpeg', '.png', '.gif', '.bmp', '.webp' ],
+    // fileSize: '20mb',
+    // cleanSchedule: { cron: '0 30 4 * * *' },
+  };
+
+  config.static = {
+    dir: [{
+      prefix: '/upload',
+      dir: path.join(appInfo.baseDir, '', 'upload'),
+    }],
+  };
+
   // add your user config here
   const userConfig = {
     // myAppName: 'egg',
     file: {
-      disk: path.join(__dirname, '../..', 'upload'),
+      disk: path.join(__dirname, '..', 'upload'),
     },
   };
+
 
   return {
     ...config,

@@ -22,12 +22,12 @@ module.exports = {
     enable: true,
     package: 'egg-router-group',
   },
-  // multipart: {
-  //   enable: true,
-  //   package: 'egg-multipart',
-  // },
-  // static: {
-  //   enable: true,
-  //   package: 'egg-static',
-  // },
+  multipart: {
+    enable: true,
+    package: 'egg-multipart',
+  },
+  static: {
+    enable: true,
+    package: 'egg-static',
+  },
 };
