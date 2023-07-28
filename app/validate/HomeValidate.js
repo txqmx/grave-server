@@ -2,9 +2,13 @@
 
 const BaseValidate = require('./BaseValidate');
 
-class IndexValidate extends BaseValidate {
+class HomeValidate extends BaseValidate {
   constructor(ctx) {
     super(ctx);
+
+    this.defaultParams = {
+      code: ctx.state.grave && ctx.state.code,
+    };
 
     this.allRule = {
       code: [{ required: true, message: 'code不能为空' }],
@@ -28,4 +32,4 @@ class IndexValidate extends BaseValidate {
 
 }
 
-module.exports = IndexValidate;
+module.exports = HomeValidate;

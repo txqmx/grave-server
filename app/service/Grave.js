@@ -29,6 +29,7 @@ class GraveService extends BaseService {
     const cur = await ctx[this.delegate][this.model].findOne({
       where: _where,
     });
+    console.log(cur);
     if (cur) {
       this.ctx.error('编码不能重复');
     }
@@ -37,6 +38,18 @@ class GraveService extends BaseService {
       // 创建grave
       const grave = await ctx[this.delegate][this.model].create(params);
       const grave_id = grave.id;
+
+      // 生成二维码
+      const url = grave.code;
+      const qr_code = await ctx.helper.createQrcode('https://baidu.com');
+      console.log(qr_code);
+      await ctx[this.delegate].GraveUrl.create({
+        grave_id,
+        url,
+        qr_code,
+      });
+
+      // 创建主人
       const masterParam = {
         grave_id,
         name: '请输入姓名',
@@ -44,6 +57,8 @@ class GraveService extends BaseService {
         is_master: 1,
       };
       await ctx[this.delegate].Member.create(masterParam);
+
+      // 创建页面
       const pageParam = {
         grave_id,
         name: '页面',
@@ -58,6 +73,17 @@ class GraveService extends BaseService {
       transaction.rollback();
       this.ctx.throw(500, error.message || '服务器错误');
     }
+  }
+
+  async getQrcode(params) {
+    const { ctx } = this;
+    const _where = { id: params.id };
+    const grave = await ctx[this.delegate][this.model].findOne({
+      where: _where,
+    });
+    const result = grave.getGrave_url();
+    console.log(result);
+    return result;
   }
 
 

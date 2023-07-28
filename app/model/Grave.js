@@ -18,6 +18,7 @@ module.exports = (app, model) => {
     Grave.belongsTo(model.Admin, { foreignKey: 'admin_id' });
     Grave.hasMany(model.Member, { foreignKey: 'grave_id' });
     Grave.hasMany(model.Page, { foreignKey: 'grave_id' });
+    Grave.hasOne(model.GraveUrl, { foreignKey: 'grave_id' });
   };
 
   return Grave;

@@ -2,7 +2,7 @@
 
 const BaseService = require('./BaseService');
 
-class IndexService extends BaseService {
+class HomeService extends BaseService {
   constructor(...arg) {
     super(...arg);
     this.delegate = 'model'; // ctx.model
@@ -65,4 +65,4 @@ class IndexService extends BaseService {
 
 }
 
-module.exports = IndexService;
+module.exports = HomeService;

@@ -32,6 +32,7 @@ module.exports = app => {
     router.get('/list', controllerGroup.findAll);
     router.post('/update', controllerGroup.update);
     router.post('/delete', controllerGroup.delete);
+    router.get('/getQrcode', controllerGroup.getQrcode);
   });
 
   // 人员管理

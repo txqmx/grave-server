@@ -7,6 +7,6 @@
 module.exports = app => {
   const { router, controller, middleware } = app;
   //   const jwt = middleware.jwt();
-  //   const grave = middleware.grave()
-  router.get('/api/getHomeInfo', controller.front.index.getHomeInfo);
+  const grave = middleware.grave('front');
+  router.get('/api/home/getHomeInfo', grave, controller.front.home.getHomeInfo);
 };

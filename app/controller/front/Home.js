@@ -1,24 +1,24 @@
 'use strict';
 
 const BaseController = require('../BaseController');
-const IndexValidate = require('../../validate/IndexValidate');
+const HomeValidate = require('../../validate/HomeValidate');
 
-class IndexController extends BaseController {
+class HomeController extends BaseController {
   constructor(...arg) {
     super(...arg);
 
-    this.validate = new IndexValidate(this.ctx);
+    this.validate = new HomeValidate(this.ctx);
   }
 
   // 获取首页信息
   async getHomeInfo() {
     const { ctx } = this;
     const params = await this.validate.setScene('Detail').checkValidate();
-    const result = await ctx.service.index.getHomeInfo(params);
+    const result = await ctx.service.home.getHomeInfo(params);
     this.ctx.success(result);
   }
 
 
 }
 
-module.exports = IndexController;
+module.exports = HomeController;

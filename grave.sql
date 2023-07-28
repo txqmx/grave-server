@@ -57,6 +57,20 @@ CREATE TABLE `grave` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='墓碑表';
 
 -- ----------------------------
+-- Table structure for grave_url
+-- ----------------------------
+DROP TABLE IF EXISTS `grave_url`;
+CREATE TABLE `grave_url` (
+  `id` int NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `grave_id` int DEFAULT NULL COMMENT '墓碑id',
+  `url` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci COMMENT 'url地址',
+  `qr_code` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci COMMENT '二维码base64',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='生成的url';
+
+-- ----------------------------
 -- Table structure for member
 -- ----------------------------
 DROP TABLE IF EXISTS `member`;

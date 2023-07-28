@@ -19,6 +19,13 @@ class GraveController extends BaseController {
     this.ctx.success(result);
   }
 
+  async getQrcode() {
+    const { ctx } = this;
+    const params = await this.validate.setScene('Detail').checkValidate();
+    const result = await ctx.service[this.service].getQrcode(params);
+    this.ctx.success(result);
+  }
+
 
 }
 
