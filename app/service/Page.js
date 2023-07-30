@@ -23,7 +23,11 @@ class PageService extends BaseService {
 
   // 起停用，一个租户只能有一个启用页面
   async changeStatus(params) {
-    const result = await this.ctx[this.delegate][this.model].findAll({ grave_id: params.grave_id });
+    const result = await this.ctx[this.delegate][this.model].findAll({
+      where: {
+        grave_id: params.grave_id,
+      },
+    });
     for (let i = 0; i < result.length; i++) {
       const item = result[i];
       if (item.id === params.id) {

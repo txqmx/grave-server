@@ -12,7 +12,10 @@ class HomeService extends BaseService {
     const { ctx } = this;
 
     // 获取墓碑
-    const grave = await ctx[this.delegate].Grave.findOne({ code: params.code });
+    const grave = await ctx[this.delegate].Grave.findOne({
+      where: { code: params.code },
+    });
+
     if (!grave) {
       this.ctx.error('不存在');
     }
@@ -29,7 +32,16 @@ class HomeService extends BaseService {
     const page = pages[0];
     const template = await page.getPage_template();
 
-    const data = page.content ? JSON.parse(page.content) : {};
+    const pageData = page.content ? JSON.parse(page.content) : {};
+    const defaultData = template.content ? JSON.parse(template.content) : {};
+    const defaultConfigValue = {};
+    if (template.fields) {
+      template.fields.forEach(item => {
+        defaultConfigValue[item.field] = item.defaultValue;
+      });
+    }
+    const data = { ...defaultConfigValue, ...defaultData, ...pageData };
+
     const config = template.config ? JSON.parse(template.config) : [];
 
     for (let i = 0; i < config.length; i++) {
@@ -41,21 +53,53 @@ class HomeService extends BaseService {
     return config;
   }
 
+  async getMasterInfo(params) {
+    const { ctx } = this;
+
+    // 获取墓碑
+    const grave = await ctx[this.delegate].Grave.findOne({
+      where: {
+        code: params.code,
+      },
+    });
+    if (!grave) {
+      this.ctx.error('不存在');
+    }
+    // 获取页面
+    const members = await grave.getMembers({
+      where: {
+        is_master: 1,
+      },
+      include: 'mate',
+    });
+
+    if (!members.length) {
+      this.ctx.error('人物未配置');
+    }
+    const member = members[0];
+    return member;
+  }
+
   // 内容解析
   async parseData(data, grave_id) {
     if (!data) return {};
+
     for (const k in data) {
-      if (data[k].indexOf('$model') !== -1) {
+      // 判断字符串
+      if (typeof data[k] === 'string' && data[k].indexOf('$model') !== -1) {
         const [ type, modelWhere, fild ] = data[k].split('.');
         const [ model, whereStr ] = modelWhere.split('?');
-        const where = {
-          grave_id,
-        };
+        const where = {};
+        if (model === 'Grave') {
+          where.id = grave_id;
+        } else {
+          where.grave_id = grave_id;
+        }
         if (whereStr) {
           const [ key, value ] = whereStr.split('=');
           where[key] = value;
         }
-        const result = await this.ctx[this.delegate][model].findOne(where);
+        const result = await this.ctx[this.delegate][model].findOne({ where });
         data[k] = result[fild] || '';
       }
     }

@@ -11,7 +11,7 @@ class PageController extends BaseController {
     this.validate = new PageValidate(this.ctx);
   }
 
-  // 查询详情
+  // 修改状态
   async changeStatus() {
     const { ctx } = this;
     const params = await this.validate.setScene('Status').checkValidate();

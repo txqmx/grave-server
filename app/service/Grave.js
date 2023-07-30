@@ -42,7 +42,6 @@ class GraveService extends BaseService {
       // 生成二维码
       const url = grave.code;
       const qr_code = await ctx.helper.createQrcode('https://baidu.com');
-      console.log(qr_code);
       await ctx[this.delegate].GraveUrl.create({
         grave_id,
         url,
@@ -52,7 +51,7 @@ class GraveService extends BaseService {
       // 创建主人
       const masterParam = {
         grave_id,
-        name: '请输入姓名',
+        name: '姓名',
         is_die: 1,
         is_master: 1,
       };

@@ -23,14 +23,15 @@ class MemberService extends BaseService {
       where,
       include: 'mate',
     });
-    result = await this.findChild(result);
+    result = await this.findChild(result, 1);
     return result;
   }
 
-  async findChild(list = []) {
+  async findChild(list = [], level) {
     const { ctx } = this;
     for (let i = 0; i < list.length; i++) {
       const item = list[i];
+      item.setDataValue('level', level);
       const res = await ctx[this.delegate][this.model].findAll({
         where: {
           pid: item.id,
@@ -41,8 +42,8 @@ class MemberService extends BaseService {
         const mate = await child.getMate();
         child.setDataValue('mate', mate);
       }
-      const children = await this.findChild(res);
-      list[i].setDataValue('children', children);
+      const children = await this.findChild(res, level + 1);
+      item.setDataValue('children', children);
     }
     return list;
   }

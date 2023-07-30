@@ -7,7 +7,7 @@ class HomeValidate extends BaseValidate {
     super(ctx);
 
     this.defaultParams = {
-      code: ctx.state.grave && ctx.state.code,
+      code: ctx.state.grave && ctx.state.grave.code,
     };
 
     this.allRule = {
