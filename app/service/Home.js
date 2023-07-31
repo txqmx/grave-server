@@ -81,6 +81,8 @@ class HomeService extends BaseService {
   }
 
   // 内容解析
+  // $model.Grave.detail
+  // $model.Member?is_master=1.detail
   async parseData(data, grave_id) {
     if (!data) return {};
 
