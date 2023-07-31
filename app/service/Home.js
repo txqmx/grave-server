@@ -32,17 +32,24 @@ class HomeService extends BaseService {
     const page = pages[0];
     const template = await page.getPage_template();
 
+    const config = template.config ? JSON.parse(template.config) : [];
+
     const pageData = page.content ? JSON.parse(page.content) : {};
     const defaultData = template.content ? JSON.parse(template.content) : {};
     const defaultConfigValue = {};
-    if (template.fields) {
-      template.fields.forEach(item => {
-        defaultConfigValue[item.field] = item.defaultValue;
-      });
-    }
+
+    config.forEach(item => {
+      const params = {};
+      if (Array.isArray(item.fields)) {
+        item.fields.forEach(field => {
+          params[field.field] = field.defaultValue;
+        });
+      }
+      defaultConfigValue[item.dataSource] = params;
+    });
+
     const data = { ...defaultConfigValue, ...defaultData, ...pageData };
 
-    const config = template.config ? JSON.parse(template.config) : [];
 
     for (let i = 0; i < config.length; i++) {
       const item = config[i];

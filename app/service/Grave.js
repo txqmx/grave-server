@@ -51,7 +51,8 @@ class GraveService extends BaseService {
       // 创建主人
       const masterParam = {
         grave_id,
-        name: '姓名',
+        name: '主人姓名',
+        identity: '慈父',
         is_die: 1,
         is_master: 1,
       };
@@ -60,7 +61,7 @@ class GraveService extends BaseService {
       // 创建页面
       const pageParam = {
         grave_id,
-        name: '页面',
+        name: '默认页面',
         template_id: 1, // 待优化
         is_active: 1,
       };

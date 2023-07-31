@@ -12,15 +12,15 @@ module.exports = app => {
 
   router.post('/api/admin/login', controller.admin.admin.login);
   router.post('/api/admin/file/upload', grave, controller.admin.file.upload);
-  router.get('/api/admin/user/detail', jwt, controller.admin.admin.findOne);
 
   // 管理员管理
-  router.group({ prefix: '/api/admin/user', middlewares: [ jwt, auth ] }, router => {
+  router.group({ prefix: '/api/admin/user', middlewares: [ jwt ] }, router => {
     const controllerGroup = controller.admin.admin;
-    router.post('/create', controllerGroup.create);
-    router.get('/list', controllerGroup.findAll);
-    router.post('/update', controllerGroup.update);
-    router.post('/delete', controllerGroup.delete);
+    router.post('/create', auth, controllerGroup.create);
+    router.get('/detail', controllerGroup.findOne);
+    router.get('/list', auth, controllerGroup.findAll);
+    router.post('/update', auth, controllerGroup.update);
+    router.post('/delete', auth, controllerGroup.delete);
   });
 
 
@@ -69,12 +69,12 @@ module.exports = app => {
   });
 
   // 模板管理
-  router.group({ prefix: '/api/admin/pageTemplate', middlewares: [ jwt, auth ] }, router => {
+  router.group({ prefix: '/api/admin/pageTemplate', middlewares: [ jwt ] }, router => {
     const controllerGroup = controller.admin.pageTemplate;
-    router.post('/create', controllerGroup.create);
+    router.post('/create', auth, controllerGroup.create);
     router.get('/detail', controllerGroup.findOne);
-    router.get('/list', controllerGroup.findAll);
-    router.post('/update', controllerGroup.update);
-    router.post('/delete', controllerGroup.delete);
+    router.get('/list', auth, controllerGroup.findAll);
+    router.post('/update', auth, controllerGroup.update);
+    router.post('/delete', auth, controllerGroup.delete);
   });
 };
