@@ -9,6 +9,7 @@ module.exports = app => {
   const jwt = middleware.jwt();
   const grave = middleware.grave();
   const auth = middleware.auth();
+  const limit = middleware.limit();
 
   router.post('/api/admin/login', controller.admin.admin.login);
   router.post('/api/admin/file/upload', grave, controller.admin.file.upload);
@@ -27,8 +28,8 @@ module.exports = app => {
   // 墓碑管理
   router.group({ prefix: '/api/admin/grave', middlewares: [ jwt ] }, router => {
     const controllerGroup = controller.admin.grave;
-    router.post('/create', controllerGroup.create);
-    router.post('/createGrave', controllerGroup.createGrave);
+    // router.post('/create', controllerGroup.create);
+    router.post('/createGrave', limit, controllerGroup.createGrave);
     router.get('/detail', controllerGroup.findOne);
     router.get('/list', controllerGroup.findAll);
     router.post('/update', controllerGroup.update);

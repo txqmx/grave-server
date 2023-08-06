@@ -48,7 +48,7 @@ class AdminValidate extends BaseValidate {
   // 编辑
   sceneEdit() {
     this.setValidate([ 'id', 'user_name', 'password' ]);
-    this.filterParam([ 'root', 'grave_limit' ]);
+    this.filterParam([ 'root' ]);
   }
 
   // 登录
