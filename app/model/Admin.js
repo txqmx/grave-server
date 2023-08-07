@@ -8,6 +8,7 @@ module.exports = (app, model) => {
     user_name: STRING(255),
     password: STRING(255),
     name: STRING(255),
+    code: STRING(255),
     avatar: STRING(255),
     email: STRING(255),
     phone: STRING(255),

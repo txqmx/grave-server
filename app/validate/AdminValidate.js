@@ -14,6 +14,7 @@ class AdminValidate extends BaseValidate {
     this.allRule = {
       id: [{ required: true, message: 'id不能为空' }],
       name: [{ required: true, message: 'name不能为空' }],
+      code: [{ required: true, message: 'code不能为空' }],
       user_name: [{ required: true, message: 'user_name不能为空' }],
       password: [{ required: true, message: 'password不能为空' }],
     };
@@ -41,14 +42,14 @@ class AdminValidate extends BaseValidate {
 
   // 新增
   sceneAdd() {
-    this.setValidate([ 'user_name', 'password' ]);
+    this.setValidate([ 'name', 'code', 'user_name', 'password' ]);
     this.filterParam([ 'id' ]);
   }
 
   // 编辑
   sceneEdit() {
     this.setValidate([ 'id', 'user_name', 'password' ]);
-    this.filterParam([ 'root' ]);
+    this.filterParam([ 'root', 'code' ]);
   }
 
   // 登录

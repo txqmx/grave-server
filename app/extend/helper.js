@@ -18,7 +18,7 @@ module.exports = {
     const options = {
       type: 'image/png',
       width: 300,
-      margin: 1,
+      margin: 2,
       scale: 1,
       color: {
         dark: '#000000',

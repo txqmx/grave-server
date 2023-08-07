@@ -11,12 +11,17 @@ class AdminService extends BaseService {
 
   async create(params) {
     const { ctx } = this;
-    const _where = { user_name: params.user_name };
-    const cur = await ctx[this.delegate][this.model].findOne({
-      where: _where,
+    let cur = await ctx[this.delegate][this.model].findOne({
+      where: { user_name: params.user_name },
     });
     if (cur) {
       this.ctx.error('用户名已存在');
+    }
+    cur = await ctx[this.delegate][this.model].findOne({
+      where: { code: params.code },
+    });
+    if (cur) {
+      this.ctx.error('编码不能重复');
     }
     const result = await ctx[this.delegate][this.model].create(params);
     return result;
