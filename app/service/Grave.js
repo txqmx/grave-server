@@ -40,7 +40,7 @@ class GraveService extends BaseService {
       const grave_id = grave.id;
 
       // 生成二维码
-      const url = `http://mingzhi.zongxintang.com/v1${grave.code}`;
+      const url = `http://mingzhi.zongxintang.com/v1/${grave.code}`;
       const qr_code = await ctx.helper.createQrcode(url);
       await ctx[this.delegate].GraveUrl.create({
         grave_id,
