@@ -76,7 +76,7 @@ module.exports = appInfo => {
     mode: 'file',
     // tmpdir: path.join(__dirname, '..', 'tmp', appInfo.name),
     // fileExtensions: [ '.jpg', '.jpeg', '.png', '.gif', '.bmp', '.webp' ],
-    // fileSize: '20mb',
+    fileSize: '300mb',
     // cleanSchedule: { cron: '0 30 4 * * *' },
   };
 
