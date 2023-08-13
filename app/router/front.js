@@ -8,6 +8,7 @@ module.exports = app => {
   const { router, controller, middleware } = app;
   //   const jwt = middleware.jwt();
   const grave = middleware.grave('front');
+  router.get('/api/home/getGraveInfo', grave, controller.front.home.getGraveInfo);
   router.get('/api/home/getHomeInfo', grave, controller.front.home.getHomeInfo);
   router.get('/api/home/getMasterInfo', grave, controller.front.home.getMasterInfo);
   router.get('/api/member/treeList', grave, controller.front.member.treeList);

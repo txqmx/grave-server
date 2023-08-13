@@ -11,6 +11,7 @@ module.exports = (app, model) => {
     native: STRING(255),
     avatar: STRING(255),
     desc: STRING(255),
+    timeline: TEXT('long'),
     detail: TEXT('long'),
     mate_id: INTEGER,
     birth_time: STRING(255),

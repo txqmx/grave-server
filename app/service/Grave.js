@@ -82,7 +82,6 @@ class GraveService extends BaseService {
       where: _where,
     });
     const result = grave.getGrave_url();
-    console.log(result);
     return result;
   }
 

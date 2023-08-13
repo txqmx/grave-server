@@ -60,6 +60,14 @@ class HomeService extends BaseService {
     return config;
   }
 
+  async getGraveInfo(params) {
+    const { ctx } = this;
+    const result = await ctx.model.Grave.findOne({
+      where: { code: params.code },
+    });
+    return result;
+  }
+
   async getMasterInfo(params) {
     const { ctx } = this;
 

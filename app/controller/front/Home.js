@@ -18,6 +18,14 @@ class HomeController extends BaseController {
     this.ctx.success(result);
   }
 
+  // 获取墓碑信息
+  async getGraveInfo() {
+    const { ctx } = this;
+    const params = await this.validate.setScene('Detail').checkValidate();
+    const result = await ctx.service.home.getGraveInfo(params);
+    this.ctx.success(result);
+  }
+
   // 获取主人信息
   async getMasterInfo() {
     const { ctx } = this;
